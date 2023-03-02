@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+      generate-ddl: false
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pedidos?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari.maximum-pooll-size: 10
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: ${SCHEMA_REGISTRY_URL:http://localhost:8081}
+    bootstrap-servers: ${KAFKA_URL:http://localhost:9092}
+    producer:
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      client-id: pedidos
+      topic:
+        novo-pedido: PEDIDO_NOVO
+        pedido-cancelado: PEDIDO_CANCELADO
+management:
+  health:
+    diskSpace:
+      enabled: false
+    ping:
+      enabled: false
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health, scheduledtasks
+
+
