@@ -30,7 +30,7 @@ public class PedidoNovoProducer {
                 .collect(Collectors.toList());
         NovoPedidoEvent evento = new NovoPedidoEvent(pedido.getId(),
                 pedido.getIdCliente(), pedido.getIdRestaurante(),
-                pedido.getDataCriado(), itensEvent, pedido.getStatus());
+                pedido.getDataCriado(), itensEvent, pedido.getStatusPedido());
 
         kafkaTemplate.send(topico, pedido.getId().toString(), evento);
 

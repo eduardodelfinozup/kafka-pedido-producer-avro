@@ -18,7 +18,7 @@ public class Pedido {
     private LocalDateTime dataCriado;
 
     @Enumerated(EnumType.STRING)
-    private StatusPedido status;
+    private StatusPedido statusPedido;
 
 
     public Pedido() {
@@ -27,7 +27,7 @@ public class Pedido {
     public Pedido(Long idCliente, Long idRestaurante) {
         this.idCliente = idCliente;
         this.idRestaurante = idRestaurante;
-        this.status = StatusPedido.SOLICITADO;
+        this.statusPedido = StatusPedido.SOLICITADO;
         this.dataCriado = LocalDateTime.now();
     }
 
@@ -47,8 +47,8 @@ public class Pedido {
         return dataCriado;
     }
 
-    public StatusPedido getStatus() {
-        return status;
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
     }
 
     @Override
@@ -62,6 +62,6 @@ public class Pedido {
     }
 
     public void cancelar() {
-        this.status = StatusPedido.CANCELADO;
+        this.statusPedido = StatusPedido.CANCELADO;
     }
 }
